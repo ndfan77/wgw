@@ -14,7 +14,7 @@ export TOP_PID=$$
 	CN="${CB}$(tput setaf 6)"				# Name Color
 	CS="${CB}$(tput setaf 3)"				# Section Color
 	CK="${CB}$(tput setaf 2)"				# Key Color
- 	CW="${CB}$(tpub setaf 1)"				# Warning Color
+ 	CW="${CB}$(tput setaf 1)"				# Warning Color
 	CV="$(tput setaf 6)"					# Values Color (6-cyan or 3-brown)
 	CR="$(tput sgr0)"					# Reset Colors
 }
