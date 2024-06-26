@@ -246,7 +246,7 @@ server() {
 		help|--help)
 			Usage
 			;;
-		initialize}
+		initialize)
 			Initialize
 			;;
 		""|show)
