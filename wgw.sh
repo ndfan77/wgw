@@ -9,10 +9,12 @@ export TOP_PID=$$
 
 [ ! -z "$RT" ] && {
 	CB="$(tput bold)"					# Bold
+	CI="${CB}$(tput setaf 7)"				# Info Color
 	CH="${CB}$(tput setaf 7)"				# Header Color
 	CN="${CB}$(tput setaf 6)"				# Name Color
 	CS="${CB}$(tput setaf 3)"				# Section Color
 	CK="${CB}$(tput setaf 2)"				# Key Color
+ 	CW="${CB}$(tpub setaf 1)"				# Warning Color
 	CV="$(tput setaf 6)"					# Values Color (6-cyan or 3-brown)
 	CR="$(tput sgr0)"					# Reset Colors
 }
@@ -46,6 +48,14 @@ Echo() {
 
 EchoHex() {
 	printf '%s\r\n' "$(printf '%s' "$*" | hexdump -ve '/1 "%02X"')"
+}
+
+EchoInfo() {
+	Echo "${CI}$*${CR}"
+}
+
+EchoWarning() {
+	Echo "${CW}WARNING${CR}: ${CI}$*${CR}"
 }
 
 Error() {
@@ -111,14 +121,14 @@ Initialize() {
 	local DateStamp="$(date +"%Y%m%d%H%M")"
 	[ -d "$Repo/server" ] && {
 		mv "$Repo/server" "$Repo/server.$DateStamp"
-		Echo "WARNING: Existing server folder renamed to: $Repo/server.$DateStamp"
+		EchoWarning "Existing server folder renamed to: $Repo/server.$DateStamp"
 	}
 	[ -d "$Repo/clients" ] && {
 		mv "$Repo/clients" "$Repo/clients.$DateStamp"
-		Echo "WARNING: Existing clients folder renamed to: $Repo/clients.$DateStamp"
+		EchoWarning "Existing clients folder renamed to: $Repo/clients.$DateStamp"
 	}
 	mkdir "$Repo/server" && {
-		Echo "Server keys folder created: $Repo/server"
+		EchoInfo "Server keys folder created: $Repo/server"
 		mkdir "$Repo/clients" && {
 			Echo "Client keys folder created: $Repo/clients"
 		}
@@ -130,10 +140,10 @@ CreateServerKeys() {
 	local DateStamp="$(date +"%Y%m%d%H%M")"
 	[ -f "$Repo/server/privatekey" ] && {
 		mv "$Repo/server/privatekey" "$Repo/server/privatekey.$DateStamp"
-		Echo "WARNING: Existing server private key renamed to: $Repo/server/privatekey.$DateStamp"
+		EchoWarning "Existing server private key renamed to: $Repo/server/privatekey.$DateStamp"
 		[ -f "$Repo/server/publickey"] && {
 			mv "$Repo/server/publickey" "$Repo/server/publickey.$DateStamp"
-			Echo "WARNING: Existing server public key renamed to: $Repo/server/publickey.$DateStamp"
+			EchoWarning "Existing server public key renamed to: $Repo/server/publickey.$DateStamp"
 		}
 	}
 	$WG genkey | tee "$Repo/server/privatekey" | $WG pubkey > "$Repo/server/publickey"
@@ -146,7 +156,7 @@ AddClientKey() {
 	[ -f "$Repo/clients/$Client.privatekey" ] && Error "Client \"$Client\" already exists"
 	[ ! -f "$Repo/server/privatekey" ] && Error "Server private key isn't set.  To create it use: $Basename server createkeys"
 	$WG genkey | tee "$Repo/clients/$Client.privatekey" | $WG pubkey > "$Repo/clients/$Client.publickey"
-	Echo "Client keys created for: \"$Client\""
+	EchoInfo "Client keys created for: \"$Client\""
 	ShowClient "$Client"
 }
 
@@ -219,13 +229,13 @@ server() {
 			shift 2
 			[ -z "$@" ] && Error "Server endpoint text can't be empty"
 			printf '%s' "$@" > "$Repo/server/endpoint.txt"
- 			Echo "Server endpoint for client config templates set to \"$@\""
+ 			EchoInfo "Server endpoint for client config templates set to \"$@\""
 			;;
 		ipaddress)
 			shift 2
 			[ -z "$@" ] && Error "Server IP Address text can't be empty"
 			printf '%s' "$@" > "$Repo/server/ipaddress.txt"
- 			Echo "Server peer IP Addresss text for client config templates set to \"$@\""
+ 			EchoInfo "Server peer IP Addresss text for client config templates set to \"$@\""
 			;;
 		*)
 			Error "$Basename server: unrecognized subcommand: \"$2\""
