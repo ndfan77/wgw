@@ -59,7 +59,7 @@ EchoWarning() {
 }
 
 Error() {
-	printf 'ERROR: %s\r\n' "$*"
+	printf "${CW}ERROR${CR}: ${CI}%s${CR}\r\n" "$*"
 	kill -s TERM $TOP_PID
 	exit 1				# Shouldn't reach this line
 }
@@ -229,13 +229,13 @@ server() {
 			shift 2
 			[ -z "$@" ] && Error "Server endpoint text can't be empty"
 			printf '%s' "$@" > "$Repo/server/endpoint.txt"
- 			EchoInfo "Server endpoint text for client config templates set to: \"${CH}$@${CR}\""
+ 			EchoInfo "Server endpoint text for client config templates set to: \"${CS}$@${CR}\""
 			;;
 		ipaddress)
 			shift 2
 			[ -z "$@" ] && Error "Server IP Address text can't be empty"
 			printf '%s' "$@" > "$Repo/server/ipaddress.txt"
- 			EchoInfo "Server peer IP Addresss text for client config templates set to: \"${CH}$@${CR}\""
+ 			EchoInfo "Server peer IP Addresss text for client config templates set to: \"${CS}$@${CR}\""
 			;;
 		*)
 			Error "$Basename server: unrecognized subcommand: \"$2\""
