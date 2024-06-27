@@ -166,7 +166,7 @@ ShowClient() {
 	[ ! -f "$Repo/clients/$Client.privatekey" ] && Error "Private key for client \"${CS}$Client${CR}\" does not exist"
 	[ -f "$Repo/server/publickey" ] && ServerPubKey="${CV}$(cat "$Repo/server/publickey")${CR}" || ServerPubKey="${CW}<not found>${CR}"
  	[ -f "$Repo/server/endpoint.txt" ] && Endpoint="$(cat "$Repo/server/endpoint.txt")" || Endpoint="${CW}<not set>${CR}"
-	[ -f "$Repo/server/ipaddress.txt" ] && AllowedIP="$(cat "$Repo/server/ipaddress.txt")" || AllowedIP="<Server_VPN_Peer_IP_Address>"
+	[ -f "$Repo/server/ipaddress.txt" ] && AllowedIP="$(cat "$Repo/server/ipaddress.txt")/32" || AllowedIP="<Server_VPN_Peer_IP_Address>"
 	Echo "# ${CH}Client name${CR}: ${CN}$Client${CR}"
 	Echo "# ${CH}Public key${CR}:  ${CV}$(cat "$Repo/clients/$Client.publickey")${CR}"
 	Echo "# -----[ Remote Client Config File ]-----"
