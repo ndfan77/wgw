@@ -121,16 +121,16 @@ Initialize() {
 	local DateStamp="$(date +"%Y%m%d%H%M")"
 	[ -d "$Repo/server" ] && {
 		mv "$Repo/server" "$Repo/server.$DateStamp"
-		EchoWarning "Existing server folder renamed to: $Repo/server.$DateStamp"
+		EchoWarning "Existing server folder renamed to: ${CS}$Repo/server.$DateStamp${CR}"
 	}
 	[ -d "$Repo/clients" ] && {
 		mv "$Repo/clients" "$Repo/clients.$DateStamp"
-		EchoWarning "Existing clients folder renamed to: $Repo/clients.$DateStamp"
+		EchoWarning "Existing clients folder renamed to: ${CS}$Repo/clients.$DateStamp${CR}"
 	}
 	mkdir "$Repo/server" && {
-		EchoInfo "Server keys folder created: $Repo/server"
+		EchoInfo "Server keys folder created: ${CS}$Repo/server${CR}"
 		mkdir "$Repo/clients" && {
-			Echo "Client keys folder created: $Repo/clients"
+			EchoInfo "Client keys folder created: ${CS}$Repo/clients${CR}"
 		}
 	}
 	CreateServerKeys
@@ -140,10 +140,10 @@ CreateServerKeys() {
 	local DateStamp="$(date +"%Y%m%d%H%M")"
 	[ -f "$Repo/server/privatekey" ] && {
 		mv "$Repo/server/privatekey" "$Repo/server/privatekey.$DateStamp"
-		EchoWarning "Existing server private key renamed to: $Repo/server/privatekey.$DateStamp"
+		EchoWarning "Existing server private key renamed to: ${CS}$Repo/server/privatekey.$DateStamp${CR}"
 		[ -f "$Repo/server/publickey"] && {
 			mv "$Repo/server/publickey" "$Repo/server/publickey.$DateStamp"
-			EchoWarning "Existing server public key renamed to: $Repo/server/publickey.$DateStamp"
+			EchoWarning "Existing server public key renamed to: ${CS}$Repo/server/publickey.$DateStamp${CR}"
 		}
 	}
 	$WG genkey | tee "$Repo/server/privatekey" | $WG pubkey > "$Repo/server/publickey"
@@ -154,18 +154,19 @@ AddClientKey() {
 	local Client="$1"
 	[ -z "$Client" ] && Error "$Basename client addkey <name>: can't be empty"
 	[ -f "$Repo/clients/$Client.privatekey" ] && Error "Client \"$Client\" already exists"
-	[ ! -f "$Repo/server/privatekey" ] && Error "Server private key isn't set.  To create it use: $Basename server createkeys"
+	[ ! -f "$Repo/server/privatekey" ] && Error "Server private key isn't set.  To create it use: ${CS}$Basename server createkeys${CR}"
 	$WG genkey | tee "$Repo/clients/$Client.privatekey" | $WG pubkey > "$Repo/clients/$Client.publickey"
-	EchoInfo "Client keys created for: \"$Client\""
+	EchoInfo "Client keys created for: \"${CS}$Client${CR}\""
 	ShowClient "$Client"
 }
 
 ShowClient() {
 	local Client="$1"
-	[ ! -f "$Repo/clients/$Client.privatekey" ] && Error "Private key for client \"$Client\" does not exist"
-	[ ! -f "$Repo/server/publickey" ] && Error "Server public  key is missing"
-	[ -f "$Repo/server/endpoint.txt" ] && local Endpoint="$(cat "$Repo/server/endpoint.txt")" || local Endpoint="<not set>"
-	[ -f "$Repo/server/ipaddress.txt" ] && local AllowedIP="$(cat "$Repo/server/ipaddress.txt")" || local AllowedIP="<Server_VPN_Peer_IP_Address>"
+ 	local Endpoint AllowedIP ServerPubKey
+	[ ! -f "$Repo/clients/$Client.privatekey" ] && Error "Private key for client \"${CS}$Client${CR}\" does not exist"
+	[ -f "$Repo/server/publickey" ] && ServerPubKey="${CV}$(cat "$Repo/server/publickey")${CR}" || ServerPubKey="${CW}<not found>${CR}"
+ 	[ -f "$Repo/server/endpoint.txt" ] && Endpoint="$(cat "$Repo/server/endpoint.txt")" || Endpoint="${CW}<not set>${CR}"
+	[ -f "$Repo/server/ipaddress.txt" ] && AllowedIP="$(cat "$Repo/server/ipaddress.txt")" || AllowedIP="<Server_VPN_Peer_IP_Address>"
 	Echo "# ${CH}Client name${CR}: ${CN}$Client${CR}"
 	Echo "# ${CH}Public key${CR}:  ${CV}$(cat "$Repo/clients/$Client.publickey")${CR}"
 	Echo "# -----[ Remote Client Config File ]-----"
@@ -175,7 +176,7 @@ ShowClient() {
 	Echo ""
 	Echo "[${CS}Peer${CR}]"
 	Echo "${CH}Endpoint${CR} = $Endpoint"
-	Echo "${CH}PublicKey${CR} = ${CV}$(cat "$Repo/server/publickey")${CR}"
+	Echo "${CH}PublicKey${CR} = $ServerPubKey"
 	Echo "${CH}AllowedIPs${CR} = ${AllowedIP},<Additional_ServerSide_Subnet>"
 }
 
@@ -212,7 +213,7 @@ client() {
 			ShowClient "$@"
 			;;
 		*)
-			Error "$Basename client: unrecognized subcommand: \"$2\""
+			Error "$Basename client: unrecognized subcommand: \"${CS}$2${CR}\""
 			;;
 	esac
 }
@@ -238,7 +239,7 @@ server() {
  			EchoInfo "Server peer IP Addresss text for client config templates set to: \"${CS}$@${CR}\""
 			;;
 		*)
-			Error "$Basename server: unrecognized subcommand: \"$2\""
+			Error "$Basename server: unrecognized subcommand: \"${CS}$2${CR}\""
 			;;
 	esac
 }
@@ -246,10 +247,10 @@ server() {
 #--------------------------------------------------------------------------------------------------------------------------
 # Start of main code
 #--------------------------------------------------------------------------------------------------------------------------
-	[ ! -d "$Repo" ] && Error "Base repository folder ($Repo) doesn't exist.  (Either make it or change the Repo= variable.)"
+	[ ! -d "$Repo" ] && Error "Base repository folder (${CS}$Repo${CR}) doesn't exist.  Either make it or change the Repo= variable."
 
 	[ -z "$WG" ] && WG=$(which wg)
-	[ -z "$WG" ] && Error "Can't find WireGuard binary (wg)."
+	[ -z "$WG" ] && Error "Can't find WireGuard binary (${CS}wg${CR})."
 
 	Basename=$(basename "$0")
 	case "$1" in
