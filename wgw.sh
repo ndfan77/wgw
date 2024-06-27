@@ -71,10 +71,10 @@ Usage() {
 	Echo "Usage: $Basename <command> <arguments>"
 	Echo ""
 	Echo "$Basename internal commands:"
-	Echo "  show: Calls wg for current config and device info and adds friendly names"
-	Echo "  initialize: Initialize repository folder structure and create server keys"
-	Echo "  client <show>|<addkey>|<listkeys>: Show, add, or list client keys"
-	Echo "  server <show>|<endpoint>|<ipaddress>|<createkeys>: Show server template information, set it, or initialize keys"
+	Echo "  ${CH}show${CR}: Calls wg for current config and device info and adds friendly names"
+	Echo "  ${CH}initialize${CR}: Initialize repository folder structure and create server keys"
+	Echo "  ${CH}client${CR} show | addkey | listkeys: Show, add, or list client keys"
+	Echo "  ${CH}server${CR} show | endpoint | ipaddress | createkeys: Show server template information, set it, or initialize keys"
 	Echo ""
 	Echo "<command> can also be any valid wg command:"
 	$WG --help
@@ -229,13 +229,13 @@ server() {
 			shift 2
 			[ -z "$@" ] && Error "Server endpoint text can't be empty"
 			printf '%s' "$@" > "$Repo/server/endpoint.txt"
- 			EchoInfo "Server endpoint for client config templates set to \"$@\""
+ 			EchoInfo "Server endpoint text for client config templates set to: \"${CH}$@${CR}\""
 			;;
 		ipaddress)
 			shift 2
 			[ -z "$@" ] && Error "Server IP Address text can't be empty"
 			printf '%s' "$@" > "$Repo/server/ipaddress.txt"
- 			EchoInfo "Server peer IP Addresss text for client config templates set to \"$@\""
+ 			EchoInfo "Server peer IP Addresss text for client config templates set to: \"${CH}$@${CR}\""
 			;;
 		*)
 			Error "$Basename server: unrecognized subcommand: \"$2\""
