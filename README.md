@@ -50,23 +50,33 @@ sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
 #### Change the Repo= variable if the Repo_Base_Folder selected is different than `/config/auth/wireguard`
 Edit the `wgw.sh` file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently line 3) to reflect the correct path.
 
-#### Initialize Key Repo and Generate server keys
+#### Create Repository Subfolders (if they don't already exist) and Generate server keys
 ```
 wgw initialize
 ```
-> [!NOTE]
+> [!WARNING]
 > - This command will create the `<Repo_Base_Folder>/server` and `<Repo_Base_Folder>/clients` folders if they do not exist, and will generate new public and private keys for the server (`server.publickey` and `server.privatekey` under the `<Repo_Base_Folder>/server` folder).
-> - Don't issue this command if you already have public and private keys for your vpn server.  Instead, manually make the `<Repo_Base_Folder>/server` and `<Repo_Base_Folder>/clients` folders and place the server public and private key files under the server folder as shown above in [Repository Structure](README.md#repository-structure). 
+> - Don't issue this command if you already have public and private keys for your vpn server.  Instead, manually make the `<Repo_Base_Folder>/server` and `<Repo_Base_Folder>/clients` folders and place the server.publickey and server.privatekey files under the server folder as shown above in [Repository Structure](README.md#repository-structure) (rename them if necessary). 
 > - If `server.publickey` or `server.privatekey` files already exist under the `<Repo_Base_Folder>/server` folder when the initialize command is issued, they will be renamed using the current date. 
-#### Set server values (shown in client config templates only - otherwise no logical value)
+### Set Server Values For Suggested Client Configuration Files
+#### Server Public Endpoint
 ```
-wgw server endpoint <my_endpoint:1305
+wgw server endpoint <my_endpoint:1305>
 ```
-
-### Set server values (shown in client config templates only - otherwise no logical value)
+> [!TIP]
+> Set this value to the public URL and port for your vpn server that vpn client's will connect to. 
+> [!IMPORTANT]
+> This only alters template text suggested for client configuration files.  It has logical value.
+#### Server VPN Endpoint IP Address
+```
 wgw server ipaddress 172.17.250.1
-
+```
+> [!IMPORTANT]
+> This only alters template text suggested for client configuration files.  It has logical value.
 
 
 # Command Line Options
-- ToDo
+To see command line options:
+```
+wgw --help
+```
