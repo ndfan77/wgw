@@ -39,15 +39,15 @@ The follow steps use `/config/auth/wireguard` as the repisotry base folder.  Cha
 # Make base repository folder (if it doesn't already exist)
 mkdir -p /config/auth/wireguard
 
-# Download WGW to it (in subshell to keep cur dir)
+# Download wgw to it (in subshell to keep cur dir)
 (cd /config/auth/wireguard; curl -OL https://raw.githubusercontent.com/ndfan77/wgw/main/wgw.sh; chmod +x wgw.sh)
 
 # Create a symlink to it in /usr/local/bin (which is normally in the path)
 sudo mkdir -p /usr/local/bin
 sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
 ```
-# First-time Wgw Configuration
-#### Change the Repo= variable if the Repo_Base_Folder selected is different than `/config/auth/wireguard`
+# First-time wgw Configuration
+#### Change the Repo= variable if the Repo_Base_Folder used is different than `/config/auth/wireguard`
 Edit the `wgw.sh` file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently line 3) to reflect the correct path.
 
 #### Create Repository Subfolders (if they don't already exist) and Generate server keys
