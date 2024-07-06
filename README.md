@@ -15,11 +15,12 @@ This is what WireGuard connection status looks like when it's displayed through 
 ## Repository Structure
 ```
 ├── <Repo_Base_Folder>
+│   ├── wgw.sh
 │   ├── clients
 │   │   ├── Dave's Cell.privatekey
 │   │   ├── Dave's Cell.publickey
-│   │   ├── Dave's Cell.privatekey
-│   │   ├── Dave's Cell.publickey
+│   │   ├── Dan's Cell.privatekey
+│   │   ├── Dan's Cell.publickey
 │   ├── server
 │   │   ├── server.privatekey
 │   │   ├── server.publickey
@@ -53,7 +54,8 @@ sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
 ```
 wgw initialize
 ```
-NOTE:  If you already have a server public and private keys 
+NOTE:  There is no need to do this if you've already created public and private keys for your vpn server
+NOTE:  If `server.publickey` or `server.privatekey` files already exist under the `<Repo_Base_Folder>/server` folder when the initialize command is issued, they will be renamed using the current date. 
 #### Set server values (shown in client config templates only - otherwise no logical value)
 ```
 wgw server endpoint <my_endpoint:1305
