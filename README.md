@@ -20,8 +20,8 @@ This is what WireGuard connection status looks like when it's displayed through 
 │   ├── clients
 │   │   ├── Dave's Cell.privatekey
 │   │   ├── Dave's Cell.publickey
-│   │   ├── Dan's Cell.privatekey
-│   │   ├── Dan's Cell.publickey
+│   │   ├── Dan's Tablet.privatekey
+│   │   ├── Dan's Tablet.publickey
 │   ├── server
 │   │   ├── server.privatekey
 │   │   ├── server.publickey
