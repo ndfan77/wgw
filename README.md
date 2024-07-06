@@ -82,3 +82,29 @@ To see command line options:
 ```
 wgw --help
 ```
+For example:
+```
+dave@myhost:~$ wgw --help 
+Usage: wgw <command> <arguments>
+
+wgw internal commands:
+  show: Calls wg for current config and device info and adds friendly names
+  initialize: Initialize repository folder structure and create server keys
+  client show | addkey | listkeys: Show, add, or list client keys
+  server show | endpoint | ipaddress | createkeys: Show server template information, set it, or initialize keys
+
+<command> can also be any valid wg command:
+Usage: /usr/bin/wg <cmd> [<args>]
+
+Available subcommands:
+  show: Shows the current configuration and device information
+  showconf: Shows the current configuration of a given WireGuard interface, for use with `setconf'
+  set: Change the current configuration, add peers, remove peers, or change peers
+  setconf: Applies a configuration file to a WireGuard interface
+  addconf: Appends a configuration file to a WireGuard interface
+  syncconf: Synchronizes a configuration file to a WireGuard interface
+  genkey: Generates a new private key and writes it to stdout
+  genpsk: Generates a new preshared key and writes it to stdout
+  pubkey: Reads a private key from stdin and writes a public key to stdout
+You may pass `--help' to any of these subcommands to view usage.
+```
