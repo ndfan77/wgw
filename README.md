@@ -35,21 +35,27 @@ A suitable place to store configuration data might be `/usr/local/etc` (i.e. set
 #### EdgeOS
 A good place to store configuration data on EdgeOS is under `/config/auth` since it persists across version upgrades (i.e. set Repo="/config/auth/wireguard" in wgw.sh).
 ## Installation Steps
-The follow steps use `/config/auth/wireguard` as the repository base folder.  Change it to reflect the base folder you actually want to use for the key repository.
+The follow steps use `/config/auth/wireguard` as the repository base folder (Repo_Base_Folder).  Change it to reflect the base folder you actually want to use for the key repository.
 ```shell
-# Make base repository folder (if it doesn't already exist)
+# Make the base repository folder (Repo_Base_Folder) if it doesn't already exist
 mkdir -p /config/auth/wireguard
 
-# Download wgw to it (in subshell to keep cur dir)
-(cd /config/auth/wireguard; curl -OL https://raw.githubusercontent.com/ndfan77/wgw/main/wgw.sh; chmod +x wgw.sh)
+# Download (or update) wgw
+cd /config/auth/wireguard
+curl -OL https://raw.githubusercontent.com/ndfan77/wgw/main/wgw.sh
+chmod +x wgw.sh
+cd -
 
-# Create a symlink to it in /usr/local/bin (which is normally in the path)
+# Create a symlink to wgw.sh in /usr/local/bin (which is normally in the path)
 sudo mkdir -p /usr/local/bin
 sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
 ```
 # First-time wgw Configuration
 #### Change the Repo= variable if the Repo_Base_Folder used is different than `/config/auth/wireguard`
 Edit the `wgw.sh` file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently line 3) to reflect the correct path.
+
+#### If You Already Have Server and Client Public and Private Key Files
+Use your favorite file management tool to organize them as shown above in [Repository Structure](README.md#repository-structure) (rename if necessary)
 
 #### Create Repository Subfolders (if they don't already exist) and Generate server keys
 ```
