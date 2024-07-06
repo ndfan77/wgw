@@ -65,14 +65,15 @@ wgw server endpoint <my_endpoint:1305>
 ```
 > [!TIP]
 > Set this value to the public URL and port for your vpn server that vpn client's will connect to. 
+
 > [!IMPORTANT]
-> This only alters template text suggested for client configuration files.  It has logical value.
+> This only alters the template text suggested for client configuration files.  It has logical value.
 #### Server VPN Endpoint IP Address
 ```
 wgw server ipaddress 172.17.250.1
 ```
 > [!IMPORTANT]
-> This only alters template text suggested for client configuration files.  It has logical value.
+> This only alters the template text suggested for client configuration files.  It has logical value.
 
 
 # Command Line Options
