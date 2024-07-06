@@ -47,8 +47,8 @@ sudo mkdir -p /usr/local/bin
 sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
 ```
 # First-time Wgw Configuration
-#### Set the Repo= variable
-- [ ] If the Repo_Base_Folder you selected is different than `/config/auth/wireguard`, edit the wgw.sh file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently on line 3) to reflect the correct path.
+#### Set the Repo= variable if the Repo_Base_Folder selected is different than `/config/auth/wireguard`
+- [ ] Edit wgw.sh file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently on line 3) to reflect the correct path.
 
 #### Initialize Key Repo and Generate server keys
 ```
