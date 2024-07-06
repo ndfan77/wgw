@@ -25,9 +25,44 @@ This is what WireGuard connection status looks like when it's displayed through 
 │   │   ├── server.publickey
 ```
 
-# Installation Steps
-- ToDo
+# Installation
+- Determine where to store the wgw.sh script
+- Determine where the Repo_Base_Folder will be located (which holds the client public and private keys, as well as the server public and private keys)
+#### General Linux
+A suitable place to store configuration data might be `/usr/local/etc` (i.e. set Repo="/usr/local/etc/wireguard" in wgw.sh).
+#### EdgeOS
+A good place to store configuration data on EdgeOS is under `/config/auth` since it persists across version upgrades (i.e. set Repo="/config/auth/wireguard" in wgw.sh).
+## Installation Steps
+The follow steps use `/config/auth/wireguard` as the repisotry base folder.  Change it to reflect the base folder you actually want to use for the key repository.
+```shell
+# Make base repository folder (if it doesn't already exist)
+mkdir -p /config/auth/wireguard
+
+# Download WGW to it (in subshell to keep cur dir)
+(cd /config/auth/wireguard; curl -OL https://raw.githubusercontent.com/ndfan77/wgw/main/wgw.sh; chmod +x wgw.sh)
+
+# Create a symlink to it in /usr/local/bin (which is normally in the path)
+sudo mkdir -p /usr/local/bin
+sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
+```
+# First-time Wgw Configuration
+#### Set the Repo= variable
+- [ ] If the Repo_Base_Folder you selected is different than `/config/auth/wireguard`, edit the wgw.sh file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently on line 3) to reflect the correct path.
+
+#### Initialize Key Repo and Generate server keys
+```
+wgw initialize
+```
+NOTE:  If you already have a server public and private keys 
+#### Set server values (shown in client config templates only - otherwise no logical value)
+```
+wgw server endpoint <my_endpoint:1305
+```
+
+### Set server values (shown in client config templates only - otherwise no logical value)
+wgw server ipaddress 172.17.250.1
+
+
 
 # Command Line Options
 - ToDo
-
