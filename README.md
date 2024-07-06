@@ -34,7 +34,7 @@ A suitable place to store configuration data might be `/usr/local/etc` (i.e. set
 #### EdgeOS
 A good place to store configuration data on EdgeOS is under `/config/auth` since it persists across version upgrades (i.e. set Repo="/config/auth/wireguard" in wgw.sh).
 ## Installation Steps
-The follow steps use `/config/auth/wireguard` as the repisotry base folder.  Change it to reflect the base folder you actually want to use for the key repository.
+The follow steps use `/config/auth/wireguard` as the repository base folder.  Change it to reflect the base folder you actually want to use for the key repository.
 ```shell
 # Make base repository folder (if it doesn't already exist)
 mkdir -p /config/auth/wireguard
