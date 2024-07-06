@@ -9,7 +9,7 @@ This is what WireGuard connection status looks like when it's displayed through 
 
 # Overview
 - The `.publickey` files of vpn peers are stored under the `clients` folder (see [Repository Structure](README.md#repository-structure) below).
-- The filename of `.publickey` files becomes the "friendly name" shown for each peer (e.g. a publickey file named `Dave's Cell.publickey` creates a friendly name of "Dave's Cell" for his publickey).  
+- The filename of `.publickey` files becomes the "friendly name" shown for each peer (e.g. a publickey file named `Dave's Cell.publickey` creates a friendly name of "Dave's Cell" for his peer connection).  
 - In addition to formatting `WG info` output with "friendly names", **wgw** also provides commands that help manage creating and maintaining private and public keys for vpn peers.
 <!-- determines the "friendly name" of peer connections by finding the public key for the peer in a folder that contains the public key files, and then adds the friendly name (the file name of the public key file) into the output of the "WG show" command.     (respository) of public key files maintaining a repository uses the name of the publickey file builds an associative array of "friendly names" to public keys (for VPN peers) by using the name of the file holding the publickey <peer>.publickey files in the clients folder of the base repository.-->
 ## Repository Structure
