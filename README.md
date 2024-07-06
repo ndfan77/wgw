@@ -26,8 +26,8 @@ This is what WireGuard connection status looks like when it's displayed through 
 ```
 
 # Installation
-- Determine where to store the wgw.sh script
 - Determine where the Repo_Base_Folder will be located (which holds the client public and private keys, as well as the server public and private keys)
+- Determine where to store the wgw.sh script.  (The example below stores it in the Repo_Base_Folder and then creates a symlink to it in /usr/local/bin.)
 #### General Linux
 A suitable place to store configuration data might be `/usr/local/etc` (i.e. set Repo="/usr/local/etc/wireguard" in wgw.sh).
 #### EdgeOS
