@@ -47,13 +47,14 @@ sudo mkdir -p /usr/local/bin
 sudo ln -s -f /config/auth/wireguard/wgw.sh /usr/local/bin/wgw
 ```
 # First-time Wgw Configuration
-#### Set the Repo= variable if the Repo_Base_Folder selected is different than `/config/auth/wireguard`
-- [ ] Edit wgw.sh file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently on line 3) to reflect the correct path.
+#### Change the Repo= variable if the Repo_Base_Folder selected is different than `/config/auth/wireguard`
+- [ ] Edit wgw.sh file with your favorite text editor (e.g. `vi /config/auth/wireguard/wgw.sh`), and change the `Repo="/config/auth/wireguard"` variable (currently line 3) to reflect the correct path.
 
 #### Initialize Key Repo and Generate server keys
 ```
 wgw initialize
 ```
+This command will create the `<Repo_Base_Folder>/server` and `<Repo_Base_Folder>/clients` folders if they do not exist, and will create a new server.publickey and server.privatekey under the `<Repo_Base_Folder>/server` folder.
 NOTE:  There is no need to do this if you've already created public and private keys for your vpn server
 NOTE:  If `server.publickey` or `server.privatekey` files already exist under the `<Repo_Base_Folder>/server` folder when the initialize command is issued, they will be renamed using the current date. 
 #### Set server values (shown in client config templates only - otherwise no logical value)
