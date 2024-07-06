@@ -64,7 +64,7 @@ wgw initialize
 wgw server endpoint <my_endpoint:1305>
 ```
 > [!TIP]
-> Set this value to the public URL and port for your vpn server that vpn client's will connect to. 
+> This is the public URL and port for your vpn server that peer's will connect to. 
 
 > [!IMPORTANT]
 > This only alters the template text suggested for client configuration files.  It has logical value.
